@@ -1,12 +1,12 @@
 import { View, Text, Image, StyleSheet, Button } from "react-native";
 import React from "react";
-import Header from "../Components/Header";
 
-const ProductDetail = ({chosenProduct}) => {
+const ProductDetail = ({ route, navigation }) => {
+
+  const chosenProduct = route.params.item
 
   return (
     <View>
-      <Header title="Details"/>
       <View style={styles.containerImage}>
         <Image
           style={styles.image}

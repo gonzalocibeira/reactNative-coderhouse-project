@@ -2,10 +2,10 @@ import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import React from "react";
 import { colors } from "../Global/colors";
 
-const ProductItem = ({ item, setChosenProduct }) => {
+const ProductItem = ({ navigation, item }) => {
 
   return (
-    <Pressable onPress={()=>setChosenProduct(item)}>
+    <Pressable onPress={()=> navigation.navigate("productDetail", {item:item})}>
       <View style={styles.container}>
         <Text style={styles.text}>{item.title}</Text>
         <Image

@@ -1,13 +1,11 @@
 import { View, Text } from "react-native";
 import React from "react";
-import Header from "../Components/Header";
 import Categories from "../Components/Categories";
 
-const Home = ({setCategory}) => {
+const Home = ({navigation}) => {
   return (
     <View>
-      <Header title="Categories"/>
-      <Categories setCategory={setCategory}/>
+      <Categories navigation={navigation}/>
     </View>
   );
 };
