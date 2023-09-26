@@ -1,6 +1,8 @@
 import { StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import RootNavigation from "./src/Navigation/RootNavigation";
+import TabNavigation from "./src/Navigation/TabNavigation";
+import { Provider } from "react-redux";
+import { store } from "./src/Redux/store";
 
 import { useFonts } from "expo-font";
 
@@ -16,9 +18,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <RootNavigation/>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <TabNavigation/>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

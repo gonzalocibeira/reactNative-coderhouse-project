@@ -5,6 +5,7 @@ import { products } from "../Data/products";
 import ProductItem from "../Components/ProductItem";
 import { Entypo } from '@expo/vector-icons';
 import { colors } from "../Global/colors";
+import { useSelector } from "react-redux";
 
 const Products = ({ route, navigation }) => {
 
@@ -13,12 +14,18 @@ const Products = ({ route, navigation }) => {
 
   const { item } = route.params;
 
+  const products = useSelector((state) => state.homeSlice.allProducts);
+
+  const productsFilterByCategory = useSelector(
+    (state) => state.homeSlice.productsFilterByCategory
+  );
+
   useEffect(() => {
     const categoryProducts = products.filter((el) => el.category === item);
     setCategoryProd(categoryProducts);
 
     if (text) {
-      const titleProduct = products.filter((el) => el.title === text);
+      const titleProduct = products.filter((el) => el.title.toLowerCase() === text.toLowerCase());
       setCategoryProd(titleProduct);
     }
   }, [text, item]);
