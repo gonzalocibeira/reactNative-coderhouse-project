@@ -6,7 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import RootNavigation from "./RootNavigation";
-import Profile from "../Screens/Profile";
+import ProfileNavigation from "./ProfileNavigation";
+//import Profile from "../Screens/Profile";
 
 import { colors } from "../Global/colors";
 
@@ -39,7 +40,7 @@ const TabNav = () => {
           ),
         }}
         name="profile"
-        component={Profile}
+        component={ProfileNavigation}
       />
     </Tab.Navigator>
   );

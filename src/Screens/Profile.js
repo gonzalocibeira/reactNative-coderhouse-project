@@ -4,7 +4,7 @@ import Header from "../Components/Header";
 import { Entypo } from "@expo/vector-icons";
 import { colors } from "../Global/colors";
 
-const Profile = () => {
+const Profile = ({route, navigation}) => {
   return (
     <View>
         <Header title="My Profile" />
@@ -23,6 +23,12 @@ const Profile = () => {
                         <Entypo name="credit" size={24} color="black" />
                     </Pressable>
                     <Text style={styles.textButton}>Payment methods</Text>
+                </View>
+                <View style={styles.containerButton}>
+                    <Pressable style={styles.containerIcon} onPress={()=>navigation.navigate("location")}>
+                        <Entypo name="direction" size={24} color="black" />
+                    </Pressable>
+                    <Text style={styles.textButton}>My location</Text>
                 </View>
             </View>
         </View>

@@ -20,9 +20,9 @@ const RootNavigation = () => {
             }
         )
     }>
-      <Stack.Screen component={Home} name="home" />
-      <Stack.Screen component={Products} name="products" />
-      <Stack.Screen component={ProductDetail} name="productDetail" />
+      <Stack.Screen component={Home} name="home"/>
+      <Stack.Screen component={Products} name="products"/>
+      <Stack.Screen component={ProductDetail} name="productDetail"/>
     </Stack.Navigator>
   );
 };
