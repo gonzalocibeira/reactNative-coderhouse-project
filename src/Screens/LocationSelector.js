@@ -1,37 +1,45 @@
 import { StyleSheet, Text, View } from "react-native"; import React, { useEffect, useState } from "react"; 
 import * as Location from "expo-location";
+import MapView from "react-native-maps";
 import { colors } from "../Global/colors";
 
 const LocationSelector = ({ navigation }) => {
 
-    const [location, setLocation] = useState({latitude:"", longitude:""});
-    const [error, setError] = useState("");
+    const [location, setLocation] = useState();
+    const [error, setErrorMsg] = useState("");
 
+    const getLocationAsync = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
+    
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+      };
+    
     useEffect(() => {
-        (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== "granted") {
-                setError("You need to grant location permission")
-                return
-            }
-
-            let deviceLocation = await Location.getCurrentPositionAsync({});
-            setLocation({latitude: deviceLocation.coords.latitude, longitude: deviceLocation.coords.longitude})
-        })
-    },[]);
+        getLocationAsync();
+    }, []);
 
     return(
         <View styles={styles.container}>
-            <Text> My current coordinates:</Text>
-            {location ? (
-                <View styles={styles.locContainer}>
-                    <Text>Lat: {location.latitude} - Long: {location.longitude}</Text>
-                </View>
-            ) : (
-                <View styles={styles.locContainer}>
-                    <Text>{error}</Text>
-                </View>
-            )}
+            <View>
+                <Text> My current coordinates:</Text>
+                {location ? (
+                    <View styles={styles.locContainer}>
+                        <Text>Lat: {location.coords.latitude} - Long: {location.coords.longitude}</Text>
+                    </View>
+                ) : (
+                    <View styles={styles.locContainer}>
+                        <Text>{error}</Text>
+                    </View>
+                )}
+            </View>
+            {location && <View>
+                <MapView pointerEvents={true} showsUserLocation={true} style={styles.map} region={{latitude: location.coords.latitude, longitude: location.coords.longitude}}/>
+            </View>}
         </View>
     )
 };
@@ -52,7 +60,12 @@ const styles = StyleSheet.create({
         padding: 10, 
         justifyContent: "center", 
         alignItems: "center",
-    }
+    },
+    map: {
+        marginTop: 30,
+        width: "100%",
+        height: "100%",
+      },
 })
 
 export default LocationSelector;
